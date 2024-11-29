@@ -2,6 +2,6 @@
 
 int main()
 {
-    Tetris t = TetrisInit();
-    TetrisRun(t);
+	Tetris t = TetrisInit();
+	TetrisRun(t);
 }

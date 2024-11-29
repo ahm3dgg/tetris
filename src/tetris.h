@@ -9,16 +9,56 @@ struct GridCell
     Color colors[3];
 };
 
+constexpr float LockDelay = 500;
+constexpr int RotationCap = 3;
+
+enum BlockState 
+{
+    None = 0, 
+    Block_Locked, 
+    Block_Unlocked
+};
+
+enum TetrisSFX
+{
+    SFX_LineClear = 0,
+};
+
+struct LineClearAnim 
+{
+    double lastTime;
+    double frameTime; 
+
+    int col_l;
+    int col_r; 
+};
+
 struct Tetris 
 {
+    GridCell grid[RowCount + 2][ColCount + 2]; 
+
     Block currentBlock;
     Block nextBlock;
+    BlockState currentBlockstate;
+
     int score;
     int level;
     int completedLinesPerLevel;
-    float lastUpdate;
-    Music bgMusic;
-    GridCell grid[RowCount + 2][ColCount + 2];
+    int rotationsCount;
+    
+    float lockStartTime;
+    float lastUpdate; 
+
+    bool gameover;
+
+    bool linesToClear[RowCount];
+
+    bool animating;
+    LineClearAnim currentAnim;
+
+    Sound sfx[5];
+
+    Music bgMusic; 
 };
 
 void InitGrid(Tetris& t);

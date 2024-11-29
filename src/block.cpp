@@ -1,5 +1,4 @@
 #include "block.h"
-#include "config.h"
 #include "draw.h"
 #include "colors.h"
 #include <cstdlib>
@@ -16,89 +15,91 @@ void DrawBlock(const Block& block)
     }        
 }
 
-bool IsBlockOutside(const Block& block, int row, int col)
-{  
-    int gridRow = block.position.x + row;
-    int gridCol = block.position.y + col;
+// bool IsBlockOutside(const Block& block, int row, int col)
+// {  
+//     int gridRow = block.position.x + row;
+//     int gridCol = block.position.y + col;
     
-    bool inBounds = (gridCol >= 1 && gridCol <= ColCount) && 
-                    (gridRow >= 1 && gridRow <= RowCount);
+//     bool inBounds = (gridCol >= 1 && gridCol <= ColCount) && 
+//                     (gridRow >= 1 && gridRow <= RowCount);
 
-    return !inBounds;
-}
+//     return !inBounds;
+// }
 
-bool CanRotate(const Block& block)
-{
-    auto nextRotationCells = block.cells[(block.rotationIndex + 1) % 4];
+// bool CanRotate(const Block& block)
+// {
+//     auto nextRotationCells = block.cells[(block.rotationIndex + 1) % 4];
     
-    for(int i = 0; i < 4; i++)
-    {
-        // Check each cell in the new rotation
-        int gridRow = block.position.x + nextRotationCells[i].x;
-        int gridCol = block.position.y + nextRotationCells[i].y;
+//     for(int i = 0; i < 4; i++)
+//     {
+//         // Check each cell in the new rotation
+//         int gridRow = block.position.x + nextRotationCells[i].x;
+//         int gridCol = block.position.y + nextRotationCells[i].y;
         
-        // If any cell is outside, rotation is not possible
-        if(IsBlockOutside(block, nextRotationCells[i].x, nextRotationCells[i].y))
-        {
-            return false;
-        }
-    }
-    return true;
-}
+//         // If any cell is outside, rotation is not possible
+//         if(IsBlockOutside(block, nextRotationCells[i].x, nextRotationCells[i].y))
+//         {
+//             return false;
+//         }
+//     }
+//     return true;
+// }
 
 void RotateBlock(Block& block)
 {
     if(block.type == O_Block) return;
 
-    if(CanRotate(block))
-    {
-        block.rotationIndex = (block.rotationIndex + 1) % 4;
-        return;
-    }
+    // if(CanRotate(block))
+    // {
+    //     block.rotationIndex = (block.rotationIndex + 1) % 4;
+    //     return;
+    // }
 
-    Vector2 wallKickOffsets[]
-    {
-        {0,  -1},  
-        {0,  1},  
-        {-1, 0},
-        {1,  0}  
-    };
+    // Vector2 wallKickOffsets[]
+    // {
+    //     {0,  -1},  
+    //     {0,  1},  
+    //     {-1, 0},
+    //     {1,  0}  
+    // };
 
-    for(Vector2 offset : wallKickOffsets)
-    {
-        block.position.x += offset.x;
-        block.position.y += offset.y;
+    // for(Vector2 offset : wallKickOffsets)
+    // {
+    //     block.position = Vector2Add(block.position, offset);
 
-        if(CanRotate(block))
-        {
-            block.rotationIndex = (block.rotationIndex + 1) % 4;
-            return;
-        }
+    //     if(CanRotate(block))
+    //     {
+    //         block.rotationIndex = (block.rotationIndex + 1) % 4;
+    //         return;
+    //     }
 
-        block.position.x -= offset.x;
-        block.position.y -= offset.y;
-    }
+    //     block.position = Vector2Subtract(block.position, offset);
+    // }
+
+    block.rotationIndex = (block.rotationIndex + 1) % 4; 
 }
 
 void MoveBlock(Block& block)
 {
-    bool outside = false;
-    auto cells = block.cells[block.rotationIndex];
+    // bool outside = false;
+    // auto cells = block.cells[block.rotationIndex];
    
-    for(int i = 0; i < 4; i++)
-    {
-        if(IsBlockOutside(block, cells[i].x + block.velocity.x, cells[i].y + block.velocity.y))
-        {      
-            outside = true;
-            break;  
-        }
-    }
+    // for(int i = 0; i < 4; i++)
+    // {
+    //     if(IsBlockOutside(block, cells[i].x + block.velocity.x, cells[i].y + block.velocity.y))
+    //     {      
+    //         outside = true;
+    //         break;  
+    //     }
+    // }
     
-    if(!outside)
-    {
-        block.position.x += block.velocity.x;
-        block.position.y += block.velocity.y;
-    }
+    // if(!outside)
+    // {
+    //  block.position.x += block.velocity.x;
+    //  block.position.y += block.velocity.y;
+    // }
+
+    block.position = Vector2Add(block.position, block.velocity);
 }
 
 Block GetRandomBlock()

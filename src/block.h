@@ -26,8 +26,6 @@ void DrawBlock(const Block& block);
 void RotateBlock(Block& block);
 void MoveBlock(Block& block);
 
-bool IsBlockOnGround(const Block& block);
-
 Block Create_LBlock();
 Block Create_IBlock();
 Block Create_JBlock();
