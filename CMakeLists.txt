@@ -10,7 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
 set(SRC_DIR src)
 
 add_executable(${PROJECT_NAME} src/main.cpp src/block.cpp src/draw.cpp src/tetris.cpp)
-target_link_libraries(${PROJECT_NAME} winmm raylib)
+target_link_libraries(${PROJECT_NAME} raylib winmm)
 
 # add_custom_target(copy_assets ALL
 #     COMMAND ${CMAKE_COMMAND} -E copy_directory

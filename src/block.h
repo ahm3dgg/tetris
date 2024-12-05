@@ -1,5 +1,6 @@
 #pragma once
 #include <raylib.h>
+#include <random>
 
 enum BlockType
 {
@@ -11,6 +12,10 @@ enum BlockType
     T_Block, 
     Z_Block,
 };
+
+static std::random_device rd;
+static std::mt19937 gen(rd());
+static std::uniform_int_distribution<> rnd(0, 6);
 
 struct Block 
 {

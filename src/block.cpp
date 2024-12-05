@@ -1,7 +1,6 @@
 #include "block.h"
 #include "draw.h"
 #include "colors.h"
-#include <cstdlib>
 #include <raymath.h>
 
 void DrawBlock(const Block& block)
@@ -104,7 +103,7 @@ void MoveBlock(Block& block)
 
 Block GetRandomBlock()
 {
-    int random = rand() % 7;
+    int random = rnd(gen);
     
     switch(random)
     {
