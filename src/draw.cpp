@@ -1,5 +1,7 @@
 #include "config.h"
 #include "draw.h"
+#include <raylib.h>
+#include <stdio.h>
 
 void DrawCell(int row, int col, Color backColor, Color triangleColor, Color frontColor)
 {

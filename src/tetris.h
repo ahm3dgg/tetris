@@ -3,7 +3,6 @@
 #include "block.h"
 #include "config.h"
 #include <cstddef>
-#include <random>
 
 struct GridCell 
 {
@@ -31,7 +30,7 @@ struct LineClearAnim
 {
     double lastTime;
     double frameTime; 
-
+    
     int col_l;
     int col_r; 
 };
@@ -53,7 +52,7 @@ enum BG_Music
 struct TetrisAnimation 
 {
     TetrisAnimationKind kind;
-
+    
     union 
     {   
         struct 
@@ -62,52 +61,52 @@ struct TetrisAnimation
             double frameTime; 
             int col_l;
             int col_r; 
-       } lineClear;
-
-       struct 
-       {
+        } lineClear;
+        
+        struct 
+        {
             double lastTime;
             double frameTime;
             int row;
-       } gameOver;
+        }gameOver;
     };
 };
 
 struct Tetris 
 {
     GridCell grid[RowCount + 2][ColCount + 2]; 
-
+    
     Block currentBlock;
     Block nextBlock;
     BlockState currentBlockstate;
-
+    
     TetrisAnimation anim;
-
+    
     int score;
     int level;
     int completedLinesPerLevel;
     int rotationsCount;
-
+    
     BG_Music bgMusicState;   
-
+    
     float musicPitch;
-
+    
     float lockStartTime;
     float lastUpdate; 
-
+    
     bool gameover;
-
+    
     bool linesToClear[RowCount + 1];
-
+    
     bool animating;
- 
+    
     Sound sfx[5];
-
+    
     Block preview[5];
     size_t previewCount;
     size_t preview_RP;
     size_t preview_WP;
-
+    
     Music bgMusic; 
 };
 
@@ -119,4 +118,5 @@ bool HasIntervalPassed(float& lastTime, float interval);
 Tetris TetrisInit();
 void TetrisRun(Tetris& t);
 
+void TetrisPlaySFX(const Tetris& t, TetrisSFX sfx);
 void TetrisFillPreview(Tetris& t);

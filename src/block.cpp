@@ -18,7 +18,7 @@ void DrawBlock(const Block& block)
 // {  
 //     int gridRow = block.position.x + row;
 //     int gridCol = block.position.y + col;
-    
+
 //     bool inBounds = (gridCol >= 1 && gridCol <= ColCount) && 
 //                     (gridRow >= 1 && gridRow <= RowCount);
 
@@ -28,13 +28,13 @@ void DrawBlock(const Block& block)
 // bool CanRotate(const Block& block)
 // {
 //     auto nextRotationCells = block.cells[(block.rotationIndex + 1) % 4];
-    
+
 //     for(int i = 0; i < 4; i++)
 //     {
 //         // Check each cell in the new rotation
 //         int gridRow = block.position.x + nextRotationCells[i].x;
 //         int gridCol = block.position.y + nextRotationCells[i].y;
-        
+
 //         // If any cell is outside, rotation is not possible
 //         if(IsBlockOutside(block, nextRotationCells[i].x, nextRotationCells[i].y))
 //         {
@@ -47,13 +47,13 @@ void DrawBlock(const Block& block)
 void RotateBlock(Block& block)
 {
     if(block.type == O_Block) return;
-
+    
     // if(CanRotate(block))
     // {
     //     block.rotationIndex = (block.rotationIndex + 1) % 4;
     //     return;
     // }
-
+    
     // Vector2 wallKickOffsets[]
     // {
     //     {0,  -1},  
@@ -61,20 +61,20 @@ void RotateBlock(Block& block)
     //     {-1, 0},
     //     {1,  0}  
     // };
-
+    
     // for(Vector2 offset : wallKickOffsets)
     // {
     //     block.position = Vector2Add(block.position, offset);
-
+    
     //     if(CanRotate(block))
     //     {
     //         block.rotationIndex = (block.rotationIndex + 1) % 4;
     //         return;
     //     }
-
+    
     //     block.position = Vector2Subtract(block.position, offset);
     // }
-
+    
     block.rotationIndex = (block.rotationIndex + 1) % 4; 
 }
 
@@ -82,7 +82,7 @@ void MoveBlock(Block& block)
 {
     // bool outside = false;
     // auto cells = block.cells[block.rotationIndex];
-   
+    
     // for(int i = 0; i < 4; i++)
     // {
     //     if(IsBlockOutside(block, cells[i].x + block.velocity.x, cells[i].y + block.velocity.y))
@@ -97,7 +97,7 @@ void MoveBlock(Block& block)
     //  block.position.x += block.velocity.x;
     //  block.position.y += block.velocity.y;
     // }
-
+    
     block.position = Vector2Add(block.position, block.velocity);
 }
 
@@ -139,7 +139,7 @@ Block Create_LBlock()
                 {1, 1}, 
                 {1, 2},
             }, 
-
+            
             {
                 {0, 1}, 
                 {0, 2},
@@ -160,7 +160,7 @@ Block Create_LBlock()
             },
         }
     };
-
+    
     return LBlock;
 }
 
@@ -185,21 +185,21 @@ Block Create_IBlock()
                 {1, 2},
                 {1, 3}
             }, 
-
+            
             {
                 {0, 2}, 
                 {1, 2}, 
                 {2, 2}, 
                 {3, 2},
             }, 
-
+            
             {
                 {2, 0},
                 {2, 1}, 
                 {2, 2}, 
                 {2, 3},
             }, 
-
+            
             {
                 {0, 1}, 
                 {1, 1}, 
@@ -208,7 +208,7 @@ Block Create_IBlock()
             },
         }
     };
-
+    
     return IBlock;
 }
 
@@ -233,21 +233,21 @@ Block Create_JBlock()
                 {1, 1},
                 {1, 2}
             }, 
-
+            
             {
                 {0, 1}, 
                 {1, 1},
                 {2, 1},
                 {2, 2},
             }, 
-
+            
             {
                 {1, 0}, 
                 {1, 1},
                 {1, 2},
                 {2, 0}
             }, 
-
+            
             {
                 {0, 0}, 
                 {0, 1},
@@ -256,7 +256,7 @@ Block Create_JBlock()
             },
         }
     };
-
+    
     return JBlock;
 }
 
@@ -283,7 +283,7 @@ Block Create_OBlock()
             }, 
         }
     };
-
+    
     return OBlock;
 }
 
@@ -308,21 +308,21 @@ Block Create_SBlock()
                 {1, 0}, 
                 {1, 1},
             }, 
-
+            
             {
                 {0, 1},
                 {1, 1}, 
                 {1, 2}, 
                 {2, 2},
             }, 
-
+            
             {
                 {1, 1}, 
                 {1, 2}, 
                 {2, 0}, 
                 {2, 1},
             }, 
-
+            
             {
                 {0, 0}, 
                 {1, 0}, 
@@ -331,7 +331,7 @@ Block Create_SBlock()
             },
         }
     };
-
+    
     return SBlock;
 }
 
@@ -356,21 +356,21 @@ Block Create_TBlock()
                 { 1, 1 }, 
                 { 1, 2 }
             }, 
-
+            
             {
                 { 0, 1 }, 
                 { 1, 1 }, 
                 { 1, 2 }, 
                 { 2, 1 }
             }, 
-
+            
             {
                 { 1, 0 }, 
                 { 1, 1 }, 
                 { 1, 2 }, 
                 { 2, 1 }
             }, 
-
+            
             {
                 { 0, 1 }, 
                 { 1, 0 }, 
@@ -379,7 +379,7 @@ Block Create_TBlock()
             },
         }
     };
-
+    
     return TBlock;
 }
 
@@ -404,21 +404,21 @@ Block Create_ZBlock()
                 { 1, 1 }, 
                 { 1, 2 }
             }, 
-
+            
             {
                 { 0, 2 }, 
                 { 1, 1 }, 
                 { 1, 2 }, 
                 { 2, 1 }
             }, 
-
+            
             {
                 { 1, 0 }, 
                 { 1, 1 }, 
                 { 2, 1 }, 
                 { 2, 2 }
             }, 
-
+            
             {
                 { 0, 1 }, 
                 { 1, 0 }, 
@@ -427,6 +427,6 @@ Block Create_ZBlock()
             },
         }
     };
-
+    
     return ZBlock;
 }

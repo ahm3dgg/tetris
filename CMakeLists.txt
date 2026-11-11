@@ -1,27 +1,22 @@
 cmake_minimum_required(VERSION 3.29)
+
 set(PROJECT_NAME tetris)
 set(CMAKE_CXX_STANDARD 20)
 project(${PROJECT_NAME} CXX)
 
-set(PKG_CONFIG_EXECUTABLE  "")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_CURRENT_SOURCE_DIR}/bin/Debug)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_CURRENT_SOURCE_DIR}/bin/Release)
 
-find_package(raylib CONFIG REQUIRED)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/bin")
-set(SRC_DIR src)
+add_executable(${PROJECT_NAME} WIN32 src/main.cpp)
 
-add_executable(${PROJECT_NAME} src/main.cpp src/block.cpp src/draw.cpp src/tetris.cpp)
-target_link_libraries(${PROJECT_NAME} raylib winmm)
+set(RAYLIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/vendor/raylib)
 
-# add_custom_target(copy_assets ALL
-#     COMMAND ${CMAKE_COMMAND} -E copy_directory
-#     ${PROJECT_SOURCE_DIR}/assets
-#     ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets
-#     COMMENT "Copying assets into binary directory")
+include_directories(${RAYLIB_DIR}/include)
+target_link_directories(${PROJECT_NAME} PRIVATE ${RAYLIB_DIR}/lib)
+target_link_libraries(${PROJECT_NAME}  user32 raylib winmm)
 
-# add_dependencies(${PROJECT_NAME} copy_assets)
-
-# add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-#     COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#         $<TARGET_FILE:SDL2::SDL2>
-#         $<TARGET_FILE_DIR:${PROJECT_NAME}>
-# )
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/assets
+    $<IF:$<CONFIG:Debug>,${CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG}/assets,${CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE}/assets>
+)
